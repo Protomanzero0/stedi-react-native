@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -14,6 +14,13 @@ import Login from './Login.js';
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+  // sends 'false' to useState, creates userLoggedIn and adds setUserLoggedIn method
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  //rerenders when userLoggedIn true
+  if(userLoggedIn){
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -21,10 +28,10 @@ export default function App() {
         activeColor='white'
         barStyle={{ backgroundColor: 'green' }}
       >
-        <Tab.Screen
+        {/* <Tab.Screen
           name = 'Login'
           component={Login}
-        />
+        /> */}
         <Tab.Screen
           name='Home'
           component={Home}
@@ -60,8 +67,10 @@ export default function App() {
   );
 
 
+} else {
+  return (<Login/>)   
 }
-
+}
 
 const styles = StyleSheet.create({
   
