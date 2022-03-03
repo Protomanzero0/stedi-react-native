@@ -4,13 +4,18 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-const Login = (props) => {
+export default function Login(props){
     const[number, onChangeNum] = React.useState(null);
     const[password, onChangePass] = React.useState(null);
 
 
 return (
     <View>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
         <TextInput
             style = {styles.input}
             onChangeNum = {onChangeNum}
@@ -25,16 +30,9 @@ return (
             placeholder = "One Time Password"
             keyboardType = "numeric"
         />
-        <Button title = "Log In" onPress={() => authenticateLogin(props, number)}></Button>
+        <Button title = "Log In" onPress={() => props.setUserLoggedIn(true)}></Button>
     </View>
 )
-}
-
-function authenticateLogin(props, number){
-    if (number === "10"){
-        props.setUserLoggedIn(true)
-        return true;
-    }
 }
 
 const styles = StyleSheet.create({
@@ -51,5 +49,3 @@ const styles = StyleSheet.create({
     }
     
 });
-
-export default Login;
