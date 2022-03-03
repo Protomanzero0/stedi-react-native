@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput } from 'r
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 export default function Login(props){
     const[number, onChangeNum] = React.useState(null);
     const[password, onChangePass] = React.useState(null);
@@ -18,7 +17,8 @@ return (
         <Text></Text>
         <TextInput
             style = {styles.input}
-            onChangeNum = {onChangeNum}
+            onChangeNum = {setusername()}
+            clearTextOnFocus = "true"
             value = {number}
             placeholder = "Phone Number"
             keyboardType = "numeric"
@@ -26,6 +26,7 @@ return (
         <TextInput
             style={styles.input}
             onChangePass = {onChangePass}
+            clearTextOnFocus = "true"
             value = {password}
             placeholder = "One Time Password"
             keyboardType = "numeric"
@@ -34,6 +35,7 @@ return (
     </View>
 )
 }
+// use fetch instead of axios for API call!!!!!!!
 
 const styles = StyleSheet.create({
     input: {
