@@ -7,25 +7,42 @@ export default function Login(props){
     const[number, onChangeNum] = React.useState(null);
     const[password, onChangePass] = React.useState(null);
 
-    function clickLogin() {
-        // e.preventDefault();
-        fetch ("https://dev.stedi.me/twofactorlogin/" + number, {
+    function setUsername() {
+        fetch("https://dev.stedi.me/twofactorlogin/" + number, {
             method: "POST"
-            // body: JSON.stringify({
-            //     phoneNumber: "2089707665",
-            //     oneTimePassword: password
-            // }),
         })
-        // .then((response) => response.json())
-        // .then((result) => {
-        //     if(result.message === "SUCCESS"){
-        //         alert("You are logged in.");
-        //         props.setUserLoggedIn(true);
-        //     } else {
-        //         alert("Please check your login information.");
-        //     }
-        // }); 
     } 
+
+    function verifyUser(){
+        fetch("https://dev.stedi.me/twofactorlogin/", {
+            method: "POST",
+            body: JSON.stringify({
+                phoneNumber: number,
+                oneTimePassword: password
+            }),
+        })
+        .then ((response) => {
+            if (response.status === 200){
+                return response.text()
+            } else {
+                return "000000"
+            }
+           })
+        .then ((result) => {
+            if (result.status === 200){
+                alert("You are logged in.");
+                props.setUserLoggedIn(true);
+                console.log("Logged in!")
+            } else {
+                alert("Please check your login information.")
+                console.log("Failed to log in")
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+
 return (
     <View style = {styles.login}>
         <Text></Text>
@@ -36,7 +53,6 @@ return (
         <TextInput
             style = {styles.input}
             onChangeText = {onChangeNum}
-            clearTextOnFocus = "true"
             value = {number}
             placeholder = "Phone Number"
             keyboardType = "numeric"
@@ -44,12 +60,13 @@ return (
         <TextInput
             style={styles.input}
             onChangeText = {onChangePass}
-            clearTextOnFocus = "true"
             value = {password}
             placeholder = "One Time Password"
             keyboardType = "numeric"
         />
-        <Button title = "Log In" onPress={() => clickLogin()}></Button>
+        <Button title = "Send Code" onPress={() => setUsername()}></Button>
+        <Text></Text>
+        <Button title = "Log In" onPress={() => verifyUser()}></Button>
     </View>
 )
 }
