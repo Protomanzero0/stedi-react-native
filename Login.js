@@ -13,6 +13,22 @@ export default function Login(props) {
         })
     }
 
+    function authToken(token){
+        fetch("https://dev.stedi.me/validate/" + token, {method: "GET",})
+
+        .then((response) => {const statusCode = response.status
+            const email = response.text()
+            return Promise.all([statusCode, response])})
+        .then(([statusCode, email]) => {
+            if(statusCode != 200){
+                Alert.alert("Invalid Login")
+            } else {
+                props.setUserLoggedIn(true)
+                props.email(email)
+            }
+        })
+    }
+
     function verifyUser() {
         fetch("https://dev.stedi.me/twofactorlogin", {
             method: "POST",
@@ -22,22 +38,16 @@ export default function Login(props) {
             }),
             headers: { 'content-type': 'application/json' },
         })
-            .then((response) => {
-                if (response.status == 200) {
-                    props.setUserLoggedIn(true)
-                }
-            })
-            // .then ((result) => {
-            //     if (result.status === 200){
-            //         alert("You are logged in.");
-            //         props.setUserLoggedIn(true);
-            //         console.log("Logged in!")
-            //     } else {
-            //         console.log(result)
-            //         alert("Please check your login information.")
-            //         console.log("Failed to log in")
+            .then((response) => {response.text()})
+            .then((token) => authToken(token))
+            // .then((response) => {
+            //     token = response
+
+            //     if (response.status == 200) {
+            //         props.setUserLoggedIn(true)
             //     }
             // })
+            
             .catch((error) => {
                 console.error(error);
             })

@@ -17,6 +17,7 @@ export default function App() {
 
   // sends 'false' to useState, creates userLoggedIn and adds setUserLoggedIn method
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const[email, setUserEmail] = useState(false);
 
   
   //rerenders when userLoggedIn true
@@ -35,7 +36,7 @@ export default function App() {
         /> */}
         <Tab.Screen
           name='Home'
-          component={Home}
+          children = {() => <Home setUserEmail={setUserEmail}/>}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
