@@ -13,20 +13,21 @@ export default function Login(props) {
         })
     }
 
-    function authToken(token){
-        fetch("https://dev.stedi.me/validate/" + token, {method: "GET",})
-
-        .then((response) => {const statusCode = response.status
-            const email = response.text()
-            return Promise.all([statusCode, response])})
-        .then(([statusCode, email]) => {
-            if(statusCode != 200){
-                Alert.alert("Invalid Login")
-            } else {
-                props.setUserLoggedIn(true)
-                props.email(email)
-            }
-        })
+    function authToken(token) {
+        fetch("https://dev.stedi.me/validate/" + token, { method: "GET", })
+            .then((response) => {
+                const statusCode = response.status
+                const email = response.text()
+                return Promise.all([statusCode, response])
+            })
+            .then(([statusCode, email]) => {
+                if (statusCode != 200) {
+                    Alert.alert("Invalid Login")
+                } else {
+                    props.setUserLoggedIn(true)
+                    props.setUserEmail(email)
+                }
+            })
     }
 
     function verifyUser() {
@@ -38,16 +39,9 @@ export default function Login(props) {
             }),
             headers: { 'content-type': 'application/json' },
         })
-            .then((response) => {response.text()})
+            .then((response) => response.text())
             .then((token) => authToken(token))
-            // .then((response) => {
-            //     token = response
 
-            //     if (response.status == 200) {
-            //         props.setUserLoggedIn(true)
-            //     }
-            // })
-            
             .catch((error) => {
                 console.error(error);
             })
