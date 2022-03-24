@@ -17,12 +17,13 @@ export default function App() {
 
   // sends 'false' to useState, creates userLoggedIn and adds setUserLoggedIn method
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const[email, setUserEmail] = useState(false);
+  const[email, setUserEmail] = useState(null);
 
   
   //rerenders when userLoggedIn true
   if(userLoggedIn){
-
+    // console.log(email)
+ 
   return (
     <NavigationContainer>
       <Tab.Navigator

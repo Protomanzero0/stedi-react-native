@@ -17,15 +17,17 @@ export default function Login(props) {
         fetch("https://dev.stedi.me/validate/" + token, { method: "GET", })
             .then((response) => {
                 const statusCode = response.status
-                const email = response.text()
-                return Promise.all([statusCode, response])
+                email = response.text()
+                // console.log(email)
+                return Promise.all([statusCode, email])
             })
             .then(([statusCode, email]) => {
                 if (statusCode != 200) {
                     Alert.alert("Invalid Login")
                 } else {
-                    props.setUserLoggedIn(true)
+                    // console.log(email)
                     props.setUserEmail(email)
+                    props.setUserLoggedIn(true)
                 }
             })
     }
