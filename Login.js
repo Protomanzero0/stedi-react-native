@@ -18,14 +18,12 @@ export default function Login(props) {
             .then((response) => {
                 const statusCode = response.status
                 email = response.text()
-                // console.log(email)
                 return Promise.all([statusCode, email])
             })
             .then(([statusCode, email]) => {
                 if (statusCode != 200) {
                     Alert.alert("Invalid Login")
                 } else {
-                    // console.log(email)
                     props.setUserEmail(email)
                     props.setUserLoggedIn(true)
                 }
@@ -76,7 +74,6 @@ export default function Login(props) {
         </View>
     )
 }
-// use fetch instead of axios for API call!!!!!!!
 
 
 const styles = StyleSheet.create({
@@ -91,17 +88,4 @@ const styles = StyleSheet.create({
     text: {
         height: 90, padding: 100,
     },
-    // login: {
-    //     flexDirection: 'row',
-    //     width: '100%',
-    //     justifyContent: 'space-between',
-    //     backgroundColor: 'green',
-    //     height: '12%',
-    //     alignItems: 'flex-end',
-    //     paddingBottom: 5,
-    //     paddingLeft: 10,
-    //     paddingRight: 10,
-
-    //   },
-
 });

@@ -22,7 +22,6 @@ export default function App() {
   
   //rerenders when userLoggedIn true
   if(userLoggedIn){
-    // console.log(email)
  
   return (
     <NavigationContainer>
@@ -31,10 +30,6 @@ export default function App() {
         activeColor='white'
         barStyle={{ backgroundColor: 'green' }}
       >
-        {/* <Tab.Screen
-          name = 'Login'
-          component={Login}
-        /> */}
         <Tab.Screen
           name='Home'
           children = {() => <Home userEmail={email}/>}
