@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,11 +8,21 @@ import Home from './Home.js';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Login from './Login.js';
 
 // import Icons from "./Icons";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+  // sends 'false' to useState, creates userLoggedIn and adds setUserLoggedIn method
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const[email, setUserEmail] = useState(null);
+
+  
+  //rerenders when userLoggedIn true
+  if(userLoggedIn){
+ 
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -22,7 +32,7 @@ export default function App() {
       >
         <Tab.Screen
           name='Home'
-          component={Home}
+          children = {() => <Home userEmail={email}/>}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
@@ -55,8 +65,10 @@ export default function App() {
   );
 
 
+} else {
+  return (<Login setUserLoggedIn = {setUserLoggedIn} setUserEmail={setUserEmail}/>)   
 }
-
+}
 
 const styles = StyleSheet.create({
   

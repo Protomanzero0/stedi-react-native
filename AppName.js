@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-function AppName() {
+function AppName(props) {
     return (
       <View style={styles.appName}>
-        <Text style={styles.text}>STEDI Balance</Text>
+        <Text style={styles.text}>Stedi Balance</Text>
+        <Text style={styles.email}>User: {props.name}</Text>
       </View>
     );
   }
@@ -19,5 +20,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     fontSize: 30
+  },
+  email: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 15
   }
 })
